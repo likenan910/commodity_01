@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var isCommit = true;
+            var re;
+            //防止SQL注入
+            function AntiSqlValid(oField) {
+                re= /select|update|delete|exec|count|'|"|=|;|>|<|%/i;
+                if ( re.test(oField.value) ) {
+                    alert("请您不要在参数中输入特殊字符和SQL关键字！"); //注意中文乱码
+                    oField.value = "";
+                    oField.className="errInfo";
+                    oField.focus();
+                    return false;
+                }
+            }
+            //防止sql注入
+            $(".todo").blur(function () {
+                isCommit = AntiSqlValid(this);
+            })
+        })
+    </script>
+</head>
+<body>
+    <form th:action="@{/doAdd}" method="post">
+        <input type="hidden" name="goodsId" th:attr="value=${id}"/>
+        <input class="todo" type="text" name="evaluateInfo" placeholder="请输入您的评价"/>
+        <p>请选择评分</p>
+        <input type="radio" name="likeNum" value=1>1分
+        <input type="radio" name="likeNum" value=2>2分
+        <input type="radio" name="likeNum" value=3>3分
+        <input type="radio" name="likeNum" value=4>4分
+        <input type="radio" name="likeNum" value=5>5分
+        <br/>
+        <input type="submit" value="提交"/>
+    </form>
+    <a href="/index">返回主页面</a>
+</body>
+<h1 th:text="${msg}"></h1>
+</html>

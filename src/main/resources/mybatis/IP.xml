@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zg.mapper.IpAddressMapper">
+<select id="selectIp" resultType="IpAddressDTO">
+    select * from ipaddress
+    <where>
+        <if test="ip != null and ip != ''">
+            and ip = #{ip}
+        </if>
+        and accessTime = #{accessTime}
+    </where>
+</select>
+
+    <insert id="insertIp" parameterType="IpAddressDTO">
+  		insert into ipAddress
+  		(
+  			ip,
+  			accessTime
+  		)
+  		values
+  		(
+  			#{ip},
+  			#{accessTime}
+  		)
+  	</insert>
+</mapper>

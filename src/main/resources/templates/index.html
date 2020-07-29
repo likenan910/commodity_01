@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>欢迎进入商品评价系统！！！</h1>
+<div>
+    <table class="table table-striped table-sm" th:href="@{/goodsMapperList}">
+        <thead>
+        <tr>
+            <th>商品名</th>
+            <th>商品描述</th>
+            <th>功能</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${list}">
+            <th th:text="${user.getGoodsName()}"></th>
+            <th th:text="${user.getGoodsInfo()}"></th>
+            <th><a th:href="@{/emp/avg/(id=${user.getGoodsId()})}">平均分</a></th>
+            <th><a th:href="@{/emp/add/(id=${user.getGoodsId()})}">评价</a></th>
+            <th><a th:href="@{/emp/delete/(id=${user.getGoodsId()})}">删除</a></th>
+        </tr>
+        </tbody>
+    </table>
+    用户名:<p th:text="${id}"></p>评价的商品
+    平均分为:<h2 th:text="${avg}"></h2>
+    <a th:href="@{/emp/addGoods}">增加</a>
+    <a href="/index">返回主页面</a>
+</div>
+</body>
+</html>

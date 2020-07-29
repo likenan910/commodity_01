@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zg.mapper.GoodsMapper">
+    <select id="queryGoodsList" resultType="GoodsDTO">
+        select * from goods
+        where 1=1
+    </select>
+
+    <insert id="getInsertEvaluate" parameterType="EvaluateDTO" >
+  		insert into evaluate
+  		(
+  			evaluateId,
+  			goodsId,
+  			evaluateInfo,
+  			likeNum
+  		)
+  		values
+  		(
+			replace(uuid(),'-',''),
+			#{goodsId},
+			#{evaluateInfo},
+			#{likeNum}
+  		)
+  	</insert>
+
+    <delete id="getDeleteGoods" parameterType="GoodsDTO">
+        delete from goods where goodsId = #{goodsId}
+    </delete>
+
+    <insert id="getInsertGoods" parameterType="GoodsDTO">
+        insert into goods (
+         goodsId,
+         goodsName,
+         goodsInfo
+        ) values (
+         #{goodsId},
+         #{goodsName},
+         #{goodsInfo}
+        )
+    </insert>
+</mapper>
